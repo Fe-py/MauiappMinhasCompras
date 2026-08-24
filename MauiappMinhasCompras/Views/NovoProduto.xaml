@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Define a página para cadastro de um novo produto -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiappMinhasCompras.Views.NovoProduto"
+             Title="Novo Produto">
+
+    <!-- Define o botão que aparece na barra superior da página -->
+    <ContentPage.ToolbarItems>
+
+        <!-- Botão responsável por salvar o produto -->
+        <ToolbarItem
+            Text="salvar"
+            Clicked="ToolbarItem_Clicked" />
+
+    </ContentPage.ToolbarItems>
+
+    <!-- Organiza os campos do formulário verticalmente -->
+    <VerticalStackLayout>
+
+        <!-- Texto que identifica o campo de descrição -->
+        <Label 
+            Text="Descrição do produto " />
+
+        <!-- Campo utilizado para informar a descrição do produto -->
+        <Entry
+            x:Name="txt_descricao" />
+
+        <!-- Texto que identifica o campo de quantidade -->
+        <Label
+            Text="Quantidade" />
+
+        <!-- Campo utilizado para informar a quantidade do produto -->
+        <Entry
+            x:Name="txt_quantidade"
+            Keyboard="Numeric" />
+
+        <!-- Texto que identifica o campo de preço -->
+        <Label
+            Text="Preço Unitário" />
+
+        <!-- Campo utilizado para informar o preço do produto -->
+        <Entry
+            x:Name="txt_preco"
+            Keyboard="Numeric" />
+
+    </VerticalStackLayout>
+
+</ContentPage>
