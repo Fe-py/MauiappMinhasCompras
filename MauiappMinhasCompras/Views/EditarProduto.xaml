@@ -2,11 +2,46 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiappMinhasCompras.Views.EditarProduto"
-             Title="EditarProduto">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Descricao}">
+
+
+        <!-- Define o botão que aparece na barra superior da página -->
+        <ContentPage.ToolbarItems>
+
+            <!-- Botão responsável por salvar o produto -->
+            <ToolbarItem
+            Text="salvar"
+            Clicked="ToolbarItem_Clicked" />
+
+        </ContentPage.ToolbarItems>
+
+        <!-- Organiza os campos do formulário verticalmente -->
+        <VerticalStackLayout>
+
+            <!-- Texto que identifica o campo de descrição -->
+            <Label 
+            Text="Descrição do produto " />
+
+            <!-- Campo utilizado para informar a descrição do produto -->
+            <Entry
+            x:Name="txt_descricao" Text="{Binding Descricao}"/>
+
+            <!-- Texto que identifica o campo de quantidade -->
+            <Label
+            Text="Quantidade" />
+
+            <!-- Campo utilizado para informar a quantidade do produto -->
+            <Entry
+            x:Name="txt_quantidade"
+            Keyboard="Numeric" Text="{Binding Quantidade}"/>
+
+            <!-- Texto que identifica o campo de preço -->
+            <Label
+            Text="Preço Unitário" />
+
+            <!-- Campo utilizado para informar o preço do produto -->
+            <Entry
+            x:Name="txt_preco"
+            Keyboard="Numeric" Text="{Binding Preco}"/>
+        </VerticalStackLayout>
 </ContentPage>
