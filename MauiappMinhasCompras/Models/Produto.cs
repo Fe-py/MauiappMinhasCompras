@@ -16,4 +16,6 @@ public class Produto
 
     // Armazena o preço do produto
     public double Preco { get; set; }
+
+    public double Total { get => Quantidade * Preco; }
 }

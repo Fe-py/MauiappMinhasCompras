@@ -11,7 +11,8 @@
 
         <!-- Botão responsável por somar os valores dos produtos -->
         <ToolbarItem 
-            Text="Somar" />
+            Text="Somar" 
+            Clicked="ToolbarItem_Clicked_1"/>
 
         <!-- Botão responsável por adicionar um novo produto -->
         <ToolbarItem
@@ -23,11 +24,89 @@
     <!-- Organiza os elementos da página verticalmente -->
     <VerticalStackLayout>
 
-        <!-- Exibe uma mensagem na tela -->
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <!-- Campo utilizado para pesquisar produtos -->
+        <SearchBar
+            x:Name="txt_search"
+            Placeholder="Busca de produtos"
+            TextChanged="txt_search_TextChanged"/>
+
+        <!-- Lista os produtos cadastrados -->
+        <ListView x:Name="lst_produtos">
+
+            <!-- Define o cabeçalho da lista -->
+            <ListView.Header>
+                <Grid ColumnDefinitions="*, *, *, *, *">
+
+                    <Label
+                        Grid.Column="0"
+                        Text="ID" />
+
+                    <Label
+                        Grid.Column="1"
+                        Text="Descrição" />
+
+                    <Label
+                        Grid.Column="2"
+                        Text="Preço" />
+
+                    <Label
+                        Grid.Column="3"
+                        Text="QTD" />
+
+                    <Label
+                        Grid.Column="4"
+                        Text="Total" />
+
+                </Grid>
+            </ListView.Header>
+
+            <!-- Define como cada produto será exibido -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <ViewCell>
+                        
+
+                        <!-- Define as opções disponíveis para cada produto -->
+                        <ViewCell.ContextActions>
+
+                            <!-- Opção para remover o produto -->
+                            <MenuItem
+                                Text="Remover" Clicked="MenuItem_Clicked" />
+
+                        </ViewCell.ContextActions>
+
+                        <!-- Organiza as informações do produto em colunas -->
+                        <Grid ColumnDefinitions="*, *, *, *, *">
+
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding Id}" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Descricao}" />
+
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding Preco}" />
+
+                            <Label
+                                Grid.Column="3"
+                                Text="{Binding Quantidade}" />
+
+                            <Label
+                                Grid.Column="4"
+                                Text="{Binding Total}" />
+
+                        </Grid>
+
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
 
     </VerticalStackLayout>
 
