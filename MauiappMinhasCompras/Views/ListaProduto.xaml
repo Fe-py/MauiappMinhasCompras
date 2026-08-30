@@ -37,22 +37,27 @@
             <ListView.Header>
                 <Grid ColumnDefinitions="*, *, *, *, *">
 
+                    <!-- Exibe o título da coluna do Id -->
                     <Label
                         Grid.Column="0"
                         Text="ID" />
 
+                    <!-- Exibe o título da coluna da descrição -->
                     <Label
                         Grid.Column="1"
                         Text="Descrição" />
 
+                    <!-- Exibe o título da coluna do preço -->
                     <Label
                         Grid.Column="2"
                         Text="Preço" />
 
+                    <!-- Exibe o título da coluna da quantidade -->
                     <Label
                         Grid.Column="3"
                         Text="QTD" />
 
+                    <!-- Exibe o título da coluna do valor total -->
                     <Label
                         Grid.Column="4"
                         Text="Total" />
@@ -65,36 +70,41 @@
                 <DataTemplate>
 
                     <ViewCell>
-                        
 
                         <!-- Define as opções disponíveis para cada produto -->
                         <ViewCell.ContextActions>
 
                             <!-- Opção para remover o produto -->
                             <MenuItem
-                                Text="Remover" Clicked="MenuItem_Clicked" />
+                                Text="Remover"
+                                Clicked="MenuItem_Clicked" />
 
                         </ViewCell.ContextActions>
 
                         <!-- Organiza as informações do produto em colunas -->
                         <Grid ColumnDefinitions="*, *, *, *, *">
 
+                            <!-- Exibe o Id do produto -->
                             <Label
                                 Grid.Column="0"
                                 Text="{Binding Id}" />
 
+                            <!-- Exibe a descrição do produto -->
                             <Label
                                 Grid.Column="1"
                                 Text="{Binding Descricao}" />
 
+                            <!-- Exibe o preço do produto -->
                             <Label
                                 Grid.Column="2"
                                 Text="{Binding Preco}" />
 
+                            <!-- Exibe a quantidade do produto -->
                             <Label
                                 Grid.Column="3"
                                 Text="{Binding Quantidade}" />
 
+                            <!-- Exibe o valor total do produto -->
                             <Label
                                 Grid.Column="4"
                                 Text="{Binding Total}" />

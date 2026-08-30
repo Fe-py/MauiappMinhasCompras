@@ -17,5 +17,6 @@ public class Produto
     // Armazena o preço do produto
     public double Preco { get; set; }
 
+    // Calcula automaticamente o valor total do produto
     public double Total { get => Quantidade * Preco; }
 }
