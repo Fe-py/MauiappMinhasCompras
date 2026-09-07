@@ -21,6 +21,7 @@ public partial class ListaProduto : ContentPage
     // Executa quando a página aparece
     protected async override void OnAppearing()
     {
+<<<<<<< HEAD
         try
         {
             // Limpa a lista para evitar produtos duplicados
@@ -37,6 +38,16 @@ public partial class ListaProduto : ContentPage
             // Exibe uma mensagem caso aconteça algum erro
             await DisplayAlert("ops", ex.Message, "ok");
         }
+=======
+        // Limpa a lista para evitar produtos duplicados
+        Lista.Clear();
+
+        // Busca todos os produtos cadastrados no banco de dados
+        List<Produto> tmp = await App.Db.GetAll();
+
+        // Adiciona os produtos encontrados na lista
+        tmp.ForEach(i => Lista.Add(i));
+>>>>>>> fd2616cfde9c36058cada7ee9f37df481fb018e9
     }
 
     // Executa quando o botão Adicionar é pressionado
@@ -57,6 +68,7 @@ public partial class ListaProduto : ContentPage
     // Executa quando o texto do campo de busca é alterado
     private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
     {
+<<<<<<< HEAD
         try
         {
             // Obtém o texto digitado pelo usuário
@@ -76,6 +88,19 @@ public partial class ListaProduto : ContentPage
             // Exibe uma mensagem caso aconteça algum erro
             await DisplayAlert("ops", ex.Message, "OK");
         }
+=======
+        // Obtém o texto digitado pelo usuário
+        string q = e.NewTextValue;
+
+        // Limpa a lista para evitar produtos duplicados durante a pesquisa
+        Lista.Clear();
+
+        // Busca no banco os produtos que correspondem ao texto digitado
+        List<Produto> tmp = await App.Db.Search(q);
+
+        // Adiciona os produtos encontrados na lista
+        tmp.ForEach(i => Lista.Add(i));
+>>>>>>> fd2616cfde9c36058cada7ee9f37df481fb018e9
     }
 
     // Executa quando o botão Somar é pressionado
@@ -91,8 +116,13 @@ public partial class ListaProduto : ContentPage
         DisplayAlert("Total dos produtos", msg, "Ok");
     }
 
+<<<<<<< HEAD
     // Executa quando a opção Remover de um produto é pressionada
     private async void MenuItem_Clicked(object sender, EventArgs e)
+=======
+    // Executa quando a opção Remover é pressionada
+    private void MenuItem_Clicked(object sender, EventArgs e)
+>>>>>>> fd2616cfde9c36058cada7ee9f37df481fb018e9
     {
         try
         {
