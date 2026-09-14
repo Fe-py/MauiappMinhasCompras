@@ -45,6 +45,38 @@
             x:Name="txt_preco"
             Keyboard="Numeric" />
 
+        <!-- Texto que identifica o campo de categoria -->
+        <Label
+            Text="Inserir categoria do produto"/>
+
+        <!-- Campo utilizado para selecionar a categoria do produto -->
+        <Picker x:Name="Categoriaa">
+
+            <!-- Define as opções disponíveis para a categoria -->
+            <Picker.Items>
+
+                <!-- Categoria de produtos de limpeza -->
+                <x:String>Limpeza</x:String>
+
+                <!-- Categoria de produtos de alimentação -->
+                <x:String>Alimentação</x:String>
+
+                <!-- Categoria de outros gastos -->
+                <x:String>Gastos</x:String>
+
+            </Picker.Items>
+
+        </Picker>
+
+        <!-- Texto que identifica o campo de data -->
+        <Label
+            Text="Inserir data"/>
+
+        <!-- Campo utilizado para selecionar a data da compra -->
+        <DatePicker
+            x:Name="data_produto"
+            Format="dd/MM/yyyy" />
+
     </VerticalStackLayout>
 
 </ContentPage>

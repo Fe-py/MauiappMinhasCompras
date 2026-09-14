@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
 <!-- Define a página principal da lista de produtos -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -19,105 +17,186 @@
             Text="Adicionar"
             Clicked="ToolbarItem_Clicked" />
 
+        <!-- Botão responsável por pesquisar produtos por categoria -->
+        <ToolbarItem
+            Text="Pesquisar por categoria"
+            Clicked="ToolbarItem_Clicked_2"
+            />
+
+        <!-- Botão responsável por somar os produtos de uma categoria -->
+        <ToolbarItem
+            Text="Somar por categoria"
+            Clicked="ToolbarItem_Clicked_3"/>
+
+        <!-- Botão responsável por filtrar os produtos por período -->
+        <ToolbarItem
+            Text="filtrar periodo"
+            Clicked="ToolbarItem_Clicked_4"/>
+
     </ContentPage.ToolbarItems>
 
     <!-- Organiza os elementos da página verticalmente -->
-    <VerticalStackLayout>
+    <StackLayout>
 
         <!-- Campo utilizado para pesquisar produtos -->
         <SearchBar
             x:Name="txt_search"
             Placeholder="Busca de produtos"
-            TextChanged="txt_search_TextChanged"/>
+            TextChanged="txt_search_TextChanged" />
 
-        <!-- Lista os produtos cadastrados -->
-        <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
+        <!-- Texto que identifica o campo de data inicial -->
+        <Label
+            Text="Data inicial"/>
 
-            <!-- Define o cabeçalho da lista -->
-            <ListView.Header>
-                <Grid ColumnDefinitions="*, *, *, *, *">
+        <!-- Campo utilizado para selecionar a data inicial do filtro -->
+        <DatePicker
+            x:Name="data_inicial"
+            Format="dd/MM/yyyy" />
 
-                    <!-- Exibe o título da coluna do Id -->
-                    <Label
-                        Grid.Column="0"
-                        Text="ID" />
+        <!-- Texto que identifica o campo de data final -->
+        <Label
+            Text="final"/>
 
-                    <!-- Exibe o título da coluna da descrição -->
-                    <Label
-                        Grid.Column="1"
-                        Text="Descrição" />
+        <!-- Campo utilizado para selecionar a data final do filtro -->
+        <DatePicker
+            x:Name="data_final"
+            Format="dd/MM/yyyy" />
 
-                    <!-- Exibe o título da coluna do preço -->
-                    <Label
-                        Grid.Column="2"
-                        Text="Preço" />
+        <!-- Campo utilizado para selecionar uma categoria -->
+        <Picker x:Name="Categoriaaa">
 
-                    <!-- Exibe o título da coluna da quantidade -->
-                    <Label
-                        Grid.Column="3"
-                        Text="QTD" />
+            <!-- Define as opções disponíveis para a categoria -->
+            <Picker.Items>
 
-                    <!-- Exibe o título da coluna do valor total -->
-                    <Label
-                        Grid.Column="4"
-                        Text="Total" />
+                <!-- Categoria de produtos de limpeza -->
+                <x:String>Limpeza</x:String>
 
-                </Grid>
-            </ListView.Header>
+                <!-- Categoria de produtos de alimentação -->
+                <x:String>Alimentação</x:String>
 
-            <!-- Define como cada produto será exibido -->
-            <ListView.ItemTemplate>
-                <DataTemplate>
+                <!-- Categoria de outros gastos -->
+                <x:String>Gastos</x:String>
 
-                    <ViewCell>
+            </Picker.Items>
+        </Picker>
 
-                        <!-- Define as opções disponíveis para cada produto -->
-                        <ViewCell.ContextActions>
+        <!-- Define um espaço para ocupar o restante da página -->
+        <Frame Padding="0" Margin="0" VerticalOptions="FillAndExpand">
 
-                            <!-- Opção para remover o produto -->
-                            <MenuItem
-                                Text="Remover"
-                                Clicked="MenuItem_Clicked" />
+            <!-- Lista os produtos cadastrados -->
+            <ListView x:Name="lst_produtos" 
+                      IsPullToRefreshEnabled="True"
+                      Refreshing="lst_produtos_Refreshing"
+                      ItemSelected="lst_produtos_ItemSelected">
 
-                        </ViewCell.ContextActions>
+                <!-- Define o cabeçalho da lista -->
+                <ListView.Header>
+                    <Grid ColumnDefinitions="*, *, *, *, *, *, *">
 
-                        <!-- Organiza as informações do produto em colunas -->
-                        <Grid ColumnDefinitions="*, *, *, *, *">
+                        <!-- Exibe o título da coluna do Id -->
+                        <Label
+                            Grid.Column="0"
+                            Text="ID" />
 
-                            <!-- Exibe o Id do produto -->
-                            <Label
-                                Grid.Column="0"
-                                Text="{Binding Id}" />
+                        <!-- Exibe o título da coluna da descrição -->
+                        <Label
+                            Grid.Column="1"
+                            Text="Descrição" />
 
-                            <!-- Exibe a descrição do produto -->
-                            <Label
-                                Grid.Column="1"
-                                Text="{Binding Descricao}" />
+                        <!-- Exibe o título da coluna do preço -->
+                        <Label
+                            Grid.Column="2"
+                            Text="Preço" />
 
-                            <!-- Exibe o preço do produto -->
-                            <Label
-                                Grid.Column="2"
-                                Text="{Binding Preco}" />
+                        <!-- Exibe o título da coluna da quantidade -->
+                        <Label
+                            Grid.Column="3"
+                            Text="QTD" />
 
-                            <!-- Exibe a quantidade do produto -->
-                            <Label
-                                Grid.Column="3"
-                                Text="{Binding Quantidade}" />
+                        <!-- Exibe o título da coluna do valor total -->
+                        <Label
+                            Grid.Column="4"
+                            Text="Total" />
 
-                            <!-- Exibe o valor total do produto -->
-                            <Label
-                                Grid.Column="4"
-                                Text="{Binding Total}" />
+                        <!-- Exibe o título da coluna da categoria -->
+                        <Label
+                            Grid.Column="5"
+                            Text="categoria" />
 
-                        </Grid>
+                        <!-- Exibe o título da coluna da data -->
+                        <Label
+                            Grid.Column="6"
+                            Text="Data" />
 
-                    </ViewCell>
+                    </Grid>
+                </ListView.Header>
 
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                <!-- Define como cada produto será exibido -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
 
-        </ListView>
+                        <!-- Define a estrutura de cada item da lista -->
+                        <ViewCell>
 
-    </VerticalStackLayout>
+                            <!-- Define as opções disponíveis para cada produto -->
+                            <ViewCell.ContextActions>
+
+                                <!-- Opção para remover o produto -->
+                                <MenuItem
+                                    Text="Remover"
+                                    Clicked="MenuItem_Clicked" />
+
+                            </ViewCell.ContextActions>
+
+                            <!-- Organiza as informações do produto em colunas -->
+                            <Grid ColumnDefinitions="*, *, *, *, *, *, *">
+
+                                <!-- Exibe o Id do produto -->
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Id}" />
+
+                                <!-- Exibe a descrição do produto -->
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Descricao}" />
+
+                                <!-- Exibe o preço do produto -->
+                                <Label
+                                    Grid.Column="2"
+                                    Text="{Binding Preco, StringFormat='{}{0:c}'}" />
+
+                                <!-- Exibe a quantidade do produto -->
+                                <Label
+                                    Grid.Column="3"
+                                    Text="{Binding Quantidade}" />
+
+                                <!-- Exibe o valor total do produto -->
+                                <Label
+                                    Grid.Column="4"
+                                    Text="{Binding Total, StringFormat='{}{0:c}'}" />
+
+                                <!-- Exibe a categoria do produto -->
+                                <Label
+                                    Grid.Column="5"
+                                    Text="{Binding Categoria}" />
+
+                                <!-- Exibe a data da compra -->
+                                <Label
+                                    Grid.Column="6"
+                                    Text="{Binding Data}" />
+
+                            </Grid>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </Frame>
+
+    </StackLayout>
 
 </ContentPage>

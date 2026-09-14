@@ -16,6 +16,13 @@ public partial class NovoProduto : ContentPage
     {
         try
         {
+            // Verifica se uma categoria foi selecionada
+            if (Categoriaa.SelectedItem == null)
+            {
+                await DisplayAlert("Ops", "Por favor, selecione uma categoria.", "OK");
+                return;
+            }
+
             // Cria um novo objeto Produto com os dados informados pelo usuário
             Produto p = new Produto
             {
@@ -26,7 +33,14 @@ public partial class NovoProduto : ContentPage
                 Quantidade = Convert.ToInt32(txt_quantidade.Text),
 
                 // Converte o preço informado para um número decimal
-                Preco = Convert.ToDouble(txt_preco.Text)
+                Preco = Convert.ToDouble(txt_preco.Text),
+
+                // Obtém a categoria selecionada no Picker
+                Categoria = Categoriaa.SelectedItem.ToString(),
+
+                // Obtém a data selecionada pelo usuário
+                Data = data_produto.Date.Value,
+
             };
 
             // Insere o produto no banco de dados SQLite
@@ -34,6 +48,9 @@ public partial class NovoProduto : ContentPage
 
             // Informa ao usuário que o produto foi salvo com sucesso
             await DisplayAlert("Sucesso", "Produto salvo!", "OK");
+
+            // Volta para a página anterior após salvar o produto
+            await Navigation.PopAsync();
         }
         catch (Exception ex)
         {

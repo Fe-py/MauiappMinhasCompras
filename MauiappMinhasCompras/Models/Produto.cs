@@ -42,4 +42,10 @@ public class Produto
 
     // Calcula automaticamente o valor total do produto
     public double Total { get => Quantidade * Preco; }
+
+    // Armazena a categoria do produto
+    public String Categoria { get; set; }
+
+    // Armazena a data em que o produto foi comprado
+    public DateTime Data { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using MauiappMinhasCompras.Helpers;
 using MauiappMinhasCompras.Views;
+using System.Globalization;
 
 namespace MauiappMinhasCompras
 {
@@ -35,6 +36,8 @@ namespace MauiappMinhasCompras
         {
             // Carrega os elementos definidos no App.xaml
             InitializeComponent();
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
 
             // Define a ListaProduto como a primeira página da aplicação
             // NavigationPage permite navegar entre as páginas

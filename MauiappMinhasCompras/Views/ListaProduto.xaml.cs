@@ -1,5 +1,6 @@
 namespace MauiappMinhasCompras.Views;
 
+
 using MauiappMinhasCompras.Models;
 using System.Collections.ObjectModel;
 
@@ -21,7 +22,6 @@ public partial class ListaProduto : ContentPage
     // Executa quando a página aparece
     protected async override void OnAppearing()
     {
-<<<<<<< HEAD
         try
         {
             // Limpa a lista para evitar produtos duplicados
@@ -38,16 +38,6 @@ public partial class ListaProduto : ContentPage
             // Exibe uma mensagem caso aconteça algum erro
             await DisplayAlert("ops", ex.Message, "ok");
         }
-=======
-        // Limpa a lista para evitar produtos duplicados
-        Lista.Clear();
-
-        // Busca todos os produtos cadastrados no banco de dados
-        List<Produto> tmp = await App.Db.GetAll();
-
-        // Adiciona os produtos encontrados na lista
-        tmp.ForEach(i => Lista.Add(i));
->>>>>>> fd2616cfde9c36058cada7ee9f37df481fb018e9
     }
 
     // Executa quando o botão Adicionar é pressionado
@@ -68,7 +58,6 @@ public partial class ListaProduto : ContentPage
     // Executa quando o texto do campo de busca é alterado
     private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
     {
-<<<<<<< HEAD
         try
         {
             // Obtém o texto digitado pelo usuário
@@ -88,19 +77,6 @@ public partial class ListaProduto : ContentPage
             // Exibe uma mensagem caso aconteça algum erro
             await DisplayAlert("ops", ex.Message, "OK");
         }
-=======
-        // Obtém o texto digitado pelo usuário
-        string q = e.NewTextValue;
-
-        // Limpa a lista para evitar produtos duplicados durante a pesquisa
-        Lista.Clear();
-
-        // Busca no banco os produtos que correspondem ao texto digitado
-        List<Produto> tmp = await App.Db.Search(q);
-
-        // Adiciona os produtos encontrados na lista
-        tmp.ForEach(i => Lista.Add(i));
->>>>>>> fd2616cfde9c36058cada7ee9f37df481fb018e9
     }
 
     // Executa quando o botão Somar é pressionado
@@ -116,13 +92,8 @@ public partial class ListaProduto : ContentPage
         DisplayAlert("Total dos produtos", msg, "Ok");
     }
 
-<<<<<<< HEAD
     // Executa quando a opção Remover de um produto é pressionada
     private async void MenuItem_Clicked(object sender, EventArgs e)
-=======
-    // Executa quando a opção Remover é pressionada
-    private void MenuItem_Clicked(object sender, EventArgs e)
->>>>>>> fd2616cfde9c36058cada7ee9f37df481fb018e9
     {
         try
         {
@@ -171,6 +142,170 @@ public partial class ListaProduto : ContentPage
         catch
         {
             // Ignora o erro caso aconteça algum problema durante a seleção
+        }
+    }
+
+    // Executa quando a lista é atualizada através do gesto de arrastar para baixo
+    private async void lst_produtos_Refreshing(object sender, EventArgs e)
+    {
+        try
+        {
+            // Limpa a lista para evitar produtos duplicados
+            Lista.Clear();
+
+            // Busca todos os produtos cadastrados no banco de dados
+            List<Produto> tmp = await App.Db.GetAll();
+
+            // Adiciona os produtos encontrados na lista
+            tmp.ForEach(i => Lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            // Exibe uma mensagem caso aconteça algum erro
+            await DisplayAlert("ops", ex.Message, "ok");
+        }
+        finally
+        {
+            // Finaliza o indicador de atualização da ListView
+            lst_produtos.IsRefreshing = false;
+        }
+    }
+
+    // Executa quando o botão de filtro por categoria é pressionado
+    // Retorna os produtos pertencentes à categoria selecionada
+    private async void ToolbarItem_Clicked_2(object sender, EventArgs e)
+    {
+        try
+        {
+            // Verifica se uma categoria foi selecionada
+            if (Categoriaaa.SelectedItem == null)
+            {
+                await DisplayAlert("Ops", "Selecione uma categoria.", "OK");
+                return;
+            }
+
+            // Pega a categoria selecionada no Picker
+            string categoria = Categoriaaa.SelectedItem.ToString();
+
+            // Limpa a lista para mostrar apenas os resultados da categoria
+            Lista.Clear();
+
+            // Se a categoria escolhida for Todos, busca todos os produtos
+            if (categoria == "Todos")
+            {
+                List<Produto> tmp = await App.Db.GetAll();
+
+                // Adiciona todos os produtos encontrados na lista
+                tmp.ForEach(i => Lista.Add(i));
+            }
+            else
+            {
+                // Busca somente os produtos da categoria escolhida
+                List<Produto> tmp = await App.Db.SearchCategoria(categoria);
+
+                // Adiciona os produtos encontrados na lista
+                tmp.ForEach(i => Lista.Add(i));
+            }
+        }
+
+
+        catch (Exception ex)
+        {
+            // Exibe uma mensagem caso aconteça algum erro
+            await DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+
+    // Executa quando o botão de somar por categoria é pressionado
+    private async void ToolbarItem_Clicked_3(object sender, EventArgs e)
+    {
+        try
+        {
+            // Verifica se uma categoria foi selecionada
+            if (Categoriaaa.SelectedItem == null)
+            {
+                await DisplayAlert("Ops", "Selecione uma categoria.", "OK");
+                return;
+            }
+
+            // Pega a categoria selecionada no Picker
+            string categoria = Categoriaaa.SelectedItem.ToString();
+
+            // Cria uma lista para receber os produtos
+            List<Produto> tmp;
+
+            // Se escolher Todos, busca todos os produtos
+            if (categoria == "Todos")
+            {
+                // Busca todos os produtos cadastrados
+                tmp = await App.Db.GetAll();
+            }
+            else
+            {
+                // Busca somente os produtos da categoria selecionada
+                tmp = await App.Db.SearchCategoria(categoria);
+            }
+
+            // Soma o preço de cada produto multiplicado pela quantidade
+            double soma = tmp.Sum(i => i.Preco * i.Quantidade);
+
+            // Cria a mensagem com o valor total
+            String msg = $"O total de {categoria} é {soma:C}";
+
+            // Mostra o resultado
+            await DisplayAlert("Total da categoria", msg, "Ok");
+        }
+        catch (Exception ex)
+        {
+            // Exibe uma mensagem caso aconteça algum erro
+            await DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+    // Obtém o DatePicker responsável pela data final do filtro
+    private DatePicker GetData_final1()
+    {
+        // Retorna o campo de seleção da data final
+        return data_final;
+    }
+
+    // Executa quando o botão de filtro por período é pressionado
+    private async void ToolbarItem_Clicked_4(object sender, EventArgs e)
+    {
+        try
+        {
+            // Obtém a data inicial selecionada pelo usuário
+            DateTime inicial = data_inicial.Date.Value;
+
+            // Obtém a data final selecionada pelo usuário
+            DateTime final = data_final.Date.Value;
+
+            // Verifica se a data inicial é maior que a data final
+            if (inicial > final)
+            {
+                // Exibe uma mensagem informando que o período é inválido
+                await DisplayAlert(
+                    "Ops",
+                    "A data inicial não pode ser maior que a data final.",
+                    "OK");
+
+                return;
+            }
+
+            // Limpa a lista atual
+            Lista.Clear();
+
+            // Busca os produtos dentro do período informado
+            List<Produto> tmp = await App.Db.SearchPeriodo(inicial, final);
+
+            // Adiciona os produtos encontrados na lista
+            tmp.ForEach(i => Lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            // Exibe uma mensagem caso aconteça algum erro
+            await DisplayAlert("Ops", ex.Message, "OK");
         }
     }
 }

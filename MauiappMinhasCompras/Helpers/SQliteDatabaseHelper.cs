@@ -34,6 +34,7 @@ namespace MauiappMinhasCompras.Helpers
         {
             string sql = "UPDATE Produto SET Descricao=?, Quantidade=?, Preco=? WHERE Id=?";
 
+            // Executa o comando SQL para atualizar o produto
             return _conn.QueryAsync<Produto>(sql, p.Descricao, p.Quantidade, p.Preco, p.Id);
         }
 
@@ -54,7 +55,39 @@ namespace MauiappMinhasCompras.Helpers
         {
             string sql = "SELECT * FROM Produto WHERE Descricao LIKE ?";
 
+            // Executa a pesquisa utilizando o texto informado
             return _conn.QueryAsync<Produto>(sql, "%" + q + "%");
         }
+
+        // Pesquisa produtos de acordo com a categoria
+        public Task<List<Produto>> SearchCategoria(string categoria)
+        {
+            // Cria o comando SQL para buscar a categoria informada
+            string sql = "SELECT * FROM Produto WHERE Categoria = ?";
+
+            // Executa a pesquisa utilizando a categoria escolhida
+            return _conn.QueryAsync<Produto>(sql, categoria);
+        }
+
+        // Pesquisa produtos de acordo com uma data específica
+        public Task<List<Produto>> SearchData(DateTime data_produto)
+        {
+            // Cria o comando SQL para buscar produtos pela data
+            string sql = "SELECT * FROM Produto WHERE Data = ?";
+
+            // Executa a pesquisa utilizando a data informada
+            return _conn.QueryAsync<Produto>(sql, data_produto);
+        }
+
+        // Pesquisa produtos dentro de um período de datas
+        public Task<List<Produto>> SearchPeriodo(DateTime dataInicial, DateTime dataFinal)
+        {
+            // Cria o comando SQL para buscar produtos entre a data inicial e final
+            string sql = "SELECT * FROM Produto WHERE Data >= ? AND Data <= ?";
+
+            // Executa a pesquisa utilizando as duas datas informadas
+            return _conn.QueryAsync<Produto>(sql, dataInicial, dataFinal);
+        }
+
     }
 }
